@@ -1,7 +1,7 @@
 # DynamicLib
 DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下面展示的是一个简单的例子。
 
-//最多支持13个参数
+// 最多支持13个参数
 include "ShareStore.h"
 class A : public BaseDllWrapper<A> {
 	DEFINE_CDECL_FUNCTION(Func0, void());
@@ -23,7 +23,7 @@ class A : public BaseDllWrapper<A> {
 	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
 };
 
-//动态存储的方式导出User32.dll中的函数
+// 动态存储的方式导出User32.dll中的函数
 include "ShareStore.h"
 class ShareUser32 : public BaseDllWrapper<ShareUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
@@ -33,7 +33,7 @@ class ShareUser32 : public BaseDllWrapper<ShareUser32> {
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
-//静态存储方式导出User32.dll中的函数
+// 静态存储方式导出User32.dll中的函数
 include "StaticStore.h"
 class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
@@ -43,13 +43,13 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
-//使用动态存储方式可以很方便的在相同接口不同实现的dll文件间自由切换
+// 使用动态存储方式可以很方便的在相同接口不同实现的dll文件间自由切换
 include "ShareStore.h"
 class DllTest : public BaseDllWrapper<DllTest> {
 	DEFINE_CDECL_FUNCTION(fnDllTest, int());
 };
 
-//调用示例
+// 调用示例
 int main(int argc, char* argv[])
 {
 	A().Func0<_Null>();
