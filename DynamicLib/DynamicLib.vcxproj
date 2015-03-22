@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{24F0B7E5-7975-47EE-844A-C56A43D82372}</ProjectGuid>
+    <ProjectGuid>{3EB16269-09CA-46D5-80A7-FBD992894A59}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DynamicLib</RootNamespace>
   </PropertyGroup>
@@ -45,8 +45,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -60,13 +59,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,16 +73,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DllWrapper.cpp" />
-    <ClCompile Include="DynamicLib.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="AssertString.h" />
     <ClInclude Include="DllWrapper.h" />
-    <ClInclude Include="DynamicLib.h" />
+    <ClInclude Include="OtherStore.h" />
     <ClInclude Include="ShareStore.h" />
     <ClInclude Include="StaticStore.h" />
     <ClInclude Include="TypeGroup.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllWrapper.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="DynamicLib.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

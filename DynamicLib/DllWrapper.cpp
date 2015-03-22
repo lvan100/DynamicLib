@@ -27,20 +27,13 @@ namespace /* 匿名命名空间保护本文件内部函数 */
 #endif
 	}
 
-	void* GetProc(HMODULE hModule, FuncMap procs, StdString procName) {
-
-		auto iter = procs.find(procName);
-		if (iter != procs.end()) {
-			return (*iter).second;
-		}
-
+	void* GetProc(HMODULE hModule, StdString procName) {
 		void* addr =
 #ifdef WIN32
 			::GetProcAddress(hModule, procName.c_str());
 #else
 			dlsym(hModule, procName.c_str());
 #endif
-		procs.insert(make_pair(procName, addr));
 		return addr;
 	}
 
@@ -51,13 +44,20 @@ namespace /* 匿名命名空间保护本文件内部函数 */
 /************************************************************************/
 
 template<typename _Type>
-HMODULE	StaticDllWrapper<_Type>::m_hModule = nullptr;
-
-template<typename _Type>
 StdString StaticDllWrapper<_Type>::_tag;
 
 template<typename _Type>
-FuncMap	StaticDllWrapper<_Type>::procs;
+SafeFuncList StaticDllWrapper<_Type>::procs;
+
+template<typename _Type>
+HMODULE	StaticDllWrapper<_Type>::m_hModule = nullptr;
+
+template<typename _Type>
+PtrHolder* StaticDllWrapper<_Type>::MakePtrHolder(){
+	std::shared_ptr<PtrHolder> ptr(new PtrHolder());
+	procs.push_back(ptr);
+	return ptr.get();
+}
 
 template<typename _Type>
 bool StaticDllWrapper<_Type>::Load(StdString path) {
@@ -76,13 +76,18 @@ void StaticDllWrapper<_Type>::Free() {
 		::Free(m_hModule);
 		m_hModule = nullptr;
 
-		procs.clear();
+		for (auto iter = procs.begin(); 
+			iter != procs.end();
+			iter++)
+		{
+			(*iter)->ptr = nullptr;
+		}
 	}
 }
 
 template<typename _Type>
-void* StaticDllWrapper<_Type>::GetProcAddress(StdString procName) {
-	
+bool StaticDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procName) {
+
 	if (m_hModule == nullptr) {
 		if (_Type::LazyLoad()) {
 			_Type::TryLoad();
@@ -93,7 +98,7 @@ void* StaticDllWrapper<_Type>::GetProcAddress(StdString procName) {
 		return nullptr;
 	}
 
-	return ::GetProc(m_hModule, procs, procName);
+	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);
 }
 
 /************************************************************************/
@@ -132,12 +137,19 @@ void ShareDllWrapper<_Type>::Free() {
 		::Free(m_hModule);
 		m_hModule = nullptr;
 
+		for (auto iter = procs.begin(); 
+			iter != procs.end();
+			iter++)
+		{
+			(*iter)->ptr = nullptr;
+		}
+
 		procs.clear();
 	}
 }
 
 template<typename _Type>
-void* ShareDllWrapper<_Type>::GetProcAddress(StdString procName) {
+bool ShareDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procName) {
 
 	if (m_hModule == nullptr) {
 		if (LazyLoad())	{
@@ -149,7 +161,7 @@ void* ShareDllWrapper<_Type>::GetProcAddress(StdString procName) {
 		return nullptr;
 	}
 
-	return ::GetProc(m_hModule, procs, procName);
+	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);
 }
 
 #endif /* Dll_Wrapper_Cpp */

@@ -1,30 +1,61 @@
 #ifndef Dll_Wrapper_H
 #define Dll_Wrapper_H
 
-#include <map>
-#include <string>
-using namespace std;
-
 #ifndef WIN32
 typedef void* HMODULE;
 #else
 #include <Windows.h>
 #endif
 
+#include <vector>
+#include <string>
+#include <memory>
+
 /**
- * å®šä¹‰æ ‡å‡†å­—ç¬¦ä¸²ç±»
+ * º¯ÊıÖ¸ÕëµÄÈİÆ÷
+ */
+struct PtrHolder {
+
+	/**
+	 * ÕæÕıµÄÖ¸Õë
+	 */
+	void* ptr;
+
+	/**
+	 * ¹¹Ôìº¯Êı
+	 */
+	PtrHolder(){
+		ptr = nullptr;
+	}
+
+	/**
+	 * ¸³Öµ¹¹Ôìº¯Êı
+	 */
+	PtrHolder(const PtrHolder& other) {
+		ptr = other.ptr;
+	}
+
+};
+
+/**
+ * ¶¨Òå±ê×¼×Ö·û´®Àà
  */
 #ifndef STD_STRING_TYPE
 typedef std::string StdString;
 #endif
 
 /**
- * å®šä¹‰å‡½æ•°æ˜ å°„åˆ—è¡¨
+ * ¶¨Òåµ¼³öº¯ÊıÁĞ±í£¬´æ´¢Ò»°ãµÄº¯ÊıÖ¸Õë
  */
-typedef std::map<StdString, void*> FuncMap;
+typedef std::vector<PtrHolder*> FuncList;
 
 /**
- * åŠ¨æ€é“¾æ¥/å…±äº«åº“åŒ…è£…ç±»,é™æ€å­˜å‚¨ç­–ç•¥
+ * ¶¨Òåµ¼³öº¯ÊıÁĞ±í£¬´æ´¢°²È«µÄº¯ÊıÖ¸Õë
+ */
+typedef std::vector<std::shared_ptr<PtrHolder>> SafeFuncList;
+
+/**
+ * ¶¯Ì¬Á´½Ó/¹²Ïí¿â°ü×°Àà,¾²Ì¬´æ´¢²ßÂÔ
  */
 template<typename _Type>
 class StaticDllWrapper {
@@ -32,217 +63,203 @@ class StaticDllWrapper {
 public:
 
 	/**
-	 * åŠ è½½æ¨¡å—ã€‚é‡å¤åŠ è½½å‰åŠ¡å¿…
-	 * è°ƒç”¨Free()é‡Šæ”¾å·²åŠ è½½æ¨¡å—ã€‚
-	 *
-	 * @Param path
-	 *        æ¨¡å—çš„ç»å¯¹è·¯å¾„
-	 */
-	static bool Load(StdString path);
-
-	/**
-	 * é‡Šæ”¾æ¨¡å—
-	 */
-	static void Free();
-
-	/**
-	 * è·å–å‡½æ•°å…¥å£
+	 * »ñÈ¡µ±Ç°Ä£¿éµÄ±êÇ©
 	 * 
-	 * @Param procName
-	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
-	 */
-	static void* GetProcAddress(StdString procName);
-
-	/**
-	 * æ£€æŸ¥å…¥å£ç‚¹æ˜¯å¦å­˜åœ¨ï¼Œè¯¥å‡½æ•°åªç”¨äºè°ƒè¯•æ¨¡å¼
-	 * 
-	 * @Param procName
-	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
-	 * @Return å­˜åœ¨è¿”å› trueï¼Œä¸å­˜åœ¨è¿”å› false
-	 */
-	static bool CheckProcAddress(StdString procName) {
-#ifdef _DEBUG
-		return (GetProcAddress(procName) != nullptr);
-#else
-		return true;
-#endif
-	}
-
-	/**
-	 * è·å–å½“å‰æ¨¡å—çš„æ ‡ç­¾
-	 * 
-	 * @Return è¿”å›å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ±êÇ©
 	 */
 	static StdString GetTag() {
 		return _tag;
 	}
 
 	/**
-	 * è®¾ç½®å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * ÉèÖÃµ±Ç°Ä£¿éµÄ±êÇ©
 	 *
-	 * @Param tag
-	 *         æ¨¡å—çš„æ ‡ç­¾
+	 * @param tag
+	 *         Ä£¿éµÄ±êÇ©
 	 */
 	static void SetTag(StdString tag) {
 		_tag = tag;
 	}
 
 	/**
-	 * è·å–å½“å‰æ¨¡å—çš„æ–‡ä»¶å¥æŸ„
+	 * ¼ÓÔØÄ£¿é¡£ÖØ¸´¼ÓÔØÇ°Îñ±Ø
+	 * µ÷ÓÃFree()ÊÍ·ÅÒÑ¼ÓÔØÄ£¿é¡£
+	 *
+	 * @param path
+	 *        Ä£¿éµÄ¾ø¶ÔÂ·¾¶
+	 * @return ¼ÓÔØ³É¹¦·µ»Ø true£¬Ê§°Ü·µ»Ø false¡£
+	 */
+	static bool Load(StdString path);
+
+	/**
+	 * »ñÈ¡µ±Ç°Ä£¿éµÄÎÄ¼ş¾ä±ú
 	 * 
-	 * @Return è¿”å›å½“å‰æ¨¡å—çš„å¥æŸ„
+	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ¾ä±ú
 	 */
 	static HMODULE GetHandle() {
 		return m_hModule;
 	}
 
+	/**
+	 * ÊÍ·ÅÄ£¿é
+	 */
+	static void Free();
+
+	/**
+	 * »ñÈ¡º¯ÊıÈë¿Ú
+	 * 
+	 * @param funcPtr
+	 *        º¯ÊıÖ¸ÕëµÄÈİÆ÷
+	 * @param procName
+	 *        µ¼³öº¯ÊıµÄÃû³Æ
+	 * @return ³É¹¦»ñµÃµØÖ··µ»Ø true£¬·ñÔò·µ»Ø false¡£
+	 */
+	static bool GetProcAddress(PtrHolder* funcPtr, StdString procName);
+
 protected:
 	/**
-	 * æ˜¯å¦ä½¿ç”¨æ‡’åŠ è½½æ¨¡å¼
+	 * Éú³Éº¯ÊıÖ¸ÕëµÄÈİÆ÷¶ÔÏó
+	 *
+	 * @return ·µ»ØÉú³ÉµÄÖ¸ÕëÈİÆ÷¶ÔÏó
+	 */
+	static PtrHolder* MakePtrHolder();
+
+	/**
+	 * ÊÇ·ñÊ¹ÓÃÀÁ¼ÓÔØÄ£Ê½
+	 *
+	 * @return Ê¹ÓÃÀÁ¼ÓÔØÄ£Ê½·µ»Ø true£¬·ñÔò·µ»Ø false¡£
 	 */
 	static bool LazyLoad() { 
 		return false; 
 	}
 
 	/**
-	 * å°è¯•åŠ è½½æ¨¡å—æ–‡ä»¶
+	 * ³¢ÊÔ¼ÓÔØÄ£¿éÎÄ¼ş
 	 */ 
 	static void TryLoad() {
 	}
 
-private:
+protected:
 	/**
-	 * æ¨¡å—å¥æŸ„
+	 * Ä£¿é¾ä±ú
 	 */
 	static HMODULE m_hModule;
 
 	/**
-	 * å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * º¯ÊıÈë¿Ú±í
 	 */
-	static StdString _tag;
+	static SafeFuncList procs;
 
 	/**
-	 * å‡½æ•°å…¥å£è¡¨
+	 * µ±Ç°Ä£¿éµÄ±êÇ©
 	 */
-	static FuncMap procs;
+	static StdString _tag;
 };
 
 /**
- * åŠ¨æ€é“¾æ¥/å…±äº«åº“åŒ…è£…ç±»,åŠ¨æ€å­˜å‚¨ç­–ç•¥
+ * ¶¯Ì¬Á´½Ó/¹²Ïí¿â°ü×°Àà,¶¯Ì¬´æ´¢²ßÂÔ
  */
 template<typename _Type>
  class ShareDllWrapper {
 
 public:
 	/**
-	 * æ„é€ å‡½æ•°
+	 * ¹¹Ôìº¯Êı
 	 */
 	ShareDllWrapper(StdString tag);
 
 	/**
-	 * ææ„å‡½æ•°
+	 * Îö¹¹º¯Êı
 	 */
 	~ShareDllWrapper(void);
 
 	/**
-	 * æ„é€ å‡½æ•°
+	 * ¹¹Ôìº¯Êı
 	 */
 	ShareDllWrapper();
 
 	/**
-	 * åŠ è½½æ¨¡å—ã€‚é‡å¤åŠ è½½å‰åŠ¡å¿…
-	 * è°ƒç”¨Free()é‡Šæ”¾å·²åŠ è½½æ¨¡å—ã€‚
-	 *
-	 * @Param path
-	 *        æ¨¡å—çš„ç»å¯¹è·¯å¾„
-	 */
-	bool Load(StdString path);
-
-	/**
-	 * é‡Šæ”¾æ¨¡å—
-	 */
-	void Free();
-
-	/**
-	 * è·å–å‡½æ•°å…¥å£
+	 * »ñÈ¡µ±Ç°Ä£¿éµÄ±êÇ©
 	 * 
-	 * @Param procName
-	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
-	 */
-	void* GetProcAddress(StdString procName);
-
-	/**
-	 * æ£€æŸ¥å…¥å£ç‚¹æ˜¯å¦å­˜åœ¨ï¼Œè¯¥å‡½æ•°åªç”¨äºè°ƒè¯•æ¨¡å¼
-	 * 
-	 * @Param procName
-	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
-	 * @Return å­˜åœ¨è¿”å› trueï¼Œä¸å­˜åœ¨è¿”å› false
-	 */
-	bool CheckProcAddress(StdString procName) {
-#ifdef _DEBUG
-		return (GetProcAddress(procName) != nullptr);
-#else
-		return true;
-#endif
-	}
-
-	/**
-	 * è·å–å½“å‰æ¨¡å—çš„æ ‡ç­¾
-	 * 
-	 * @Return è¿”å›å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ±êÇ©
 	 */
 	StdString GetTag() {
 		return _tag;
 	}
 
 	/**
-	 * è®¾ç½®å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * ÉèÖÃµ±Ç°Ä£¿éµÄ±êÇ©
 	 *
-	 * @Param tag
-	 *         æ¨¡å—çš„æ ‡ç­¾
+	 * @param tag
+	 *         Ä£¿éµÄ±êÇ©
 	 */
 	void SetTag(StdString tag) {
 		_tag = tag;
 	}
 
 	/**
-	 * è·å–å½“å‰æ¨¡å—çš„æ–‡ä»¶å¥æŸ„
+	 * ¼ÓÔØÄ£¿é¡£ÖØ¸´¼ÓÔØÇ°Îñ±Ø
+	 * µ÷ÓÃFree()ÊÍ·ÅÒÑ¼ÓÔØÄ£¿é¡£
+	 *
+	 * @param path
+	 *        Ä£¿éµÄ¾ø¶ÔÂ·¾¶
+	 */
+	bool Load(StdString path);
+
+	/**
+	 * »ñÈ¡µ±Ç°Ä£¿éµÄÎÄ¼ş¾ä±ú
 	 * 
-	 * @Return è¿”å›å½“å‰æ¨¡å—çš„å¥æŸ„
+	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ¾ä±ú
 	 */
 	HMODULE GetHandle() {
 		return m_hModule;
 	}
 
+	/**
+	 * ÊÍ·ÅÄ£¿é
+	 */
+	void Free();
+
+	/**
+	 * »ñÈ¡º¯ÊıÈë¿Ú
+	 * 
+	 * @param funcPtr
+	 *        º¯ÊıÖ¸ÕëµÄÈİÆ÷
+	 * @param procName
+	 *        µ¼³öº¯ÊıµÄÃû³Æ
+	 * @return ³É¹¦»ñµÃµØÖ··µ»Ø true£¬·ñÔò·µ»Ø false¡£
+	 */
+	bool GetProcAddress(PtrHolder* funcPtr, StdString procName);
+
 protected:
 	/**
-	 * æ˜¯å¦ä½¿ç”¨æ‡’åŠ è½½æ¨¡å¼
+	 * ÊÇ·ñÊ¹ÓÃÀÁ¼ÓÔØÄ£Ê½
 	 */
 	virtual bool LazyLoad() { 
 		return false; 
 	}
 
 	/**
-	 * å°è¯•åŠ è½½æ¨¡å—æ–‡ä»¶
+	 * ³¢ÊÔ¼ÓÔØÄ£¿éÎÄ¼ş
 	 */ 
 	virtual void TryLoad() {
 	}
 
-private:
+protected:
 	/**
-	 * æ¨¡å—å¥æŸ„
+	 * Ä£¿é¾ä±ú
 	 */
 	HMODULE m_hModule;
 
 	/**
-	 * å½“å‰æ¨¡å—çš„æ ‡ç­¾
+	 * µ±Ç°Ä£¿éµÄ±êÇ©
 	 */
 	StdString _tag;
 
 	/**
-	 * å‡½æ•°å…¥å£è¡¨
+	 * º¯ÊıÈë¿Ú±í
 	 */
-	FuncMap procs;
+	FuncList procs;
 };
 
 #endif /* Dll_Wrapper_H */

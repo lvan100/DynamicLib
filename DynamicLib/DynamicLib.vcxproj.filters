@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="DynamicLib.cpp" />
-    <ClCompile Include="DllWrapper.cpp">
-      <Filter>DynamicLib</Filter>
-    </ClCompile>
+    <Filter Include="DynamicLib">
+      <UniqueIdentifier>{5c56e7b2-3302-4f98-aa15-9af2a4e5d664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{fa9c8d31-300b-4910-929b-979a100d9f86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssertString.h">
-      <Filter>DynamicLib</Filter>
-    </ClInclude>
     <ClInclude Include="DllWrapper.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicLib.h">
+    <ClInclude Include="AssertString.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
     <ClInclude Include="ShareStore.h">
@@ -25,10 +24,16 @@
     <ClInclude Include="TypeGroup.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
+    <ClInclude Include="OtherStore.h">
+      <Filter>DynamicLib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="DynamicLib">
-      <UniqueIdentifier>{6cfdf7b2-8434-48e7-8656-6eb1c5642e6c}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="DllWrapper.cpp">
+      <Filter>DynamicLib</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicLib.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ class A : public BaseDllWrapper<A> {
 	DEFINE_CDECL_FUNCTION(Func11, void(int, int, int, int, int, int, int, int, int, int, int));
 	DEFINE_CDECL_FUNCTION(Func12, void(int, int, int, int, int, int, int, int, int, int, int, int));
 	DEFINE_CDECL_FUNCTION(Func13, void(int, int, int, int, int, int, int, int, int, int, int, int, int));
-	
+
 	// 最多不能超过13个参数 >> error C2027: 使用了未定义类型“_Get_TypeGroup<_Tx>”
 	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
 };
@@ -201,7 +201,7 @@ int main(int argc, char* argv[])
 	HWND hWnd = mUser32.GetDesktopWindow<_Null>();
 	mUser32.GetClientRect<_Null>(hWnd, &rcWnd);
 	mUser32.Free();
-	
+
 	// 静态存储懒加载
 	hWnd = StaticUser32::GetDesktopWindow<_Null>();
 	StaticUser32::GetClientRect<_Null>(hWnd, &rcWnd);
