@@ -1,8 +1,7 @@
 # DynamicLib
-DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。
+DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下面展示的是一个简单的例子。
 
-#include "ShareStore.h"
-
+# 最多支持13个参数
 class A : public BaseDllWrapper<A> {
 	DEFINE_CDECL_FUNCTION(Func0, void());
 	DEFINE_CDECL_FUNCTION(Func1, void(int));
@@ -23,8 +22,7 @@ class A : public BaseDllWrapper<A> {
 	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
 };
 
-#include "ShareStore.h"
-
+#动态存储的方式导出User32.dll中的函数
 class ShareUser32 : public BaseDllWrapper<ShareUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
 	DEFINE_STDCALL_FUNCTION(GetDesktopWindow, HWND());
@@ -33,8 +31,7 @@ class ShareUser32 : public BaseDllWrapper<ShareUser32> {
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
-#include "StaticStore.h"
-
+#静态存储方式导出User32.dll中的函数
 class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
 	DEFINE_STDCALL_FUNCTION(GetDesktopWindow, HWND());
@@ -43,8 +40,7 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
-#include "ShareStore.h"
-
+#
 class DllTest : public BaseDllWrapper<DllTest> {
 	DEFINE_CDECL_FUNCTION(fnDllTest, int());
 };
