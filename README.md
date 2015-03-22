@@ -230,6 +230,6 @@ DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下�
     	assert(2 == DllTestInst.fnDllTest<_Null>());
     	DllTestInst.Free();
     											
-    return 0;
+        return 0;
     }
     														
