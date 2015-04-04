@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3EB16269-09CA-46D5-80A7-FBD992894A59}</ProjectGuid>
+    <ProjectGuid>{5BE4EF75-F2FA-467E-8925-CD0F056E0958}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DynamicLib</RootNamespace>
   </PropertyGroup>
@@ -45,11 +45,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessToFile>false</PreprocessToFile>
+      <AdditionalIncludeDirectories>../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -59,11 +60,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -73,20 +76,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AssertString.h" />
-    <ClInclude Include="DllWrapper.h" />
-    <ClInclude Include="OtherStore.h" />
-    <ClInclude Include="ShareStore.h" />
-    <ClInclude Include="StaticStore.h" />
-    <ClInclude Include="TypeGroup.h" />
+    <ClInclude Include="..\..\src\AssertString.h" />
+    <ClInclude Include="..\..\src\DllWrapper.h" />
+    <ClInclude Include="..\..\src\OtherStore.h" />
+    <ClInclude Include="..\..\src\ShareStore.h" />
+    <ClInclude Include="..\..\src\StaticStore.h" />
+    <ClInclude Include="..\..\src\TypeGroup.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DllWrapper.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="DynamicLib.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="..\..\src\DllWrapper.cpp" />
+    <ClCompile Include="..\DynamicLib.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

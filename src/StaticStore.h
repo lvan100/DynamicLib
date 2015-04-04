@@ -6,7 +6,7 @@
 #include "DllWrapper.cpp"
 
 /**
- * ¶¨ÒåºÍ´æ´¢²ßÂÔÏàÍ¬µÄ°ü×°ÀàĞÍ
+ * å®šä¹‰å’Œå­˜å‚¨ç­–ç•¥ç›¸åŒçš„åŒ…è£…ç±»å‹
  */
 #define BaseDllWrapper StaticDllWrapper
 
@@ -17,19 +17,19 @@
 #include "TypeGroup.h"
 
 /**
- * ÉùÃ÷µ¼³öº¯Êı
+ * å£°æ˜å¯¼å‡ºå‡½æ•°
  * 
  * @param _Name
- *        µ¼³öº¯ÊıµÄÃû³Æ
+ *        å¯¼å‡ºå‡½æ•°çš„åç§°
  * @param _Pointer
- *        º¯Êı²ÎÊıµÄÔ­ĞÍ
+ *        å‡½æ•°å‚æ•°çš„åŸå‹
  * @param _CallType
- *        º¯ÊıµÄµ÷ÓÃ¹æÔò
+ *        å‡½æ•°çš„è°ƒç”¨è§„åˆ™
  */
 #define DEFINE_FUNCTION(_Name, _Pointer, _CallType) \
 public: \
 	\
-	/* ÉùÃ÷º¯ÊıÖ¸ÕëµÄÔ­ĞÍ */ \
+	/* å£°æ˜å‡½æ•°æŒ‡é’ˆçš„åŸå‹ */ \
 	typedef TypeGroup<_Pointer>::_CallType##_Ptr _##_Name; \
 	\
 	template<typename _Type> \

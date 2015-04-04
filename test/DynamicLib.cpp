@@ -20,6 +20,8 @@ class A : public BaseDllWrapper<A> {
 	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
 };
 
+#ifdef WIN32
+
 #include "ShareStore.h"
 
 class ShareUser32 : public BaseDllWrapper<ShareUser32> {
@@ -39,6 +41,8 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	// 静态存储使用懒加载模式
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
+
+#endif
 
 #include "ShareStore.h"
 
@@ -194,6 +198,8 @@ int main(int argc, char* argv[])
 
 	//////////////////////////////////////////////////////////////////////////
 
+#ifdef WIN32
+
 	RECT rcWnd;
 
 	// 动态存储懒加载
@@ -206,6 +212,8 @@ int main(int argc, char* argv[])
 	hWnd = StaticUser32::GetDesktopWindow<_Null>();
 	StaticUser32::GetClientRect<_Null>(hWnd, &rcWnd);
 	StaticUser32::Free();
+
+#endif
 
 	//////////////////////////////////////////////////////////////////////////
 

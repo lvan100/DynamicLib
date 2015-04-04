@@ -1,14 +1,14 @@
 #ifndef Dll_Wrapper_Cpp
 #define Dll_Wrapper_Cpp
 
-#include "AssertString.h"
 #include "DllWrapper.h"
+#include "AssertString.h"
 
 #ifndef WIN32
 #include <dlfcn.h>
 #endif
 
-namespace /* ÄäÃûÃüÃû¿Õ¼ä±£»¤±¾ÎÄ¼şÄÚ²¿º¯Êı */
+namespace /* åŒ¿åå‘½åç©ºé—´ä¿æŠ¤æœ¬æ–‡ä»¶å†…éƒ¨å‡½æ•° */
 {
 
 	HMODULE Load(StdString path) {
@@ -95,7 +95,7 @@ bool StaticDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procN
 	}
 
 	if (m_hModule == nullptr) {
-		return nullptr;
+		return false;
 	}
 
 	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);
@@ -158,7 +158,7 @@ bool ShareDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procNa
 	}
 
 	if (m_hModule == nullptr) {
-		return nullptr;
+		return false;
 	}
 
 	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);

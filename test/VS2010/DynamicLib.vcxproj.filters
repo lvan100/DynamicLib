@@ -2,37 +2,37 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="DynamicLib">
-      <UniqueIdentifier>{5c56e7b2-3302-4f98-aa15-9af2a4e5d664}</UniqueIdentifier>
+      <UniqueIdentifier>{dc8090cb-ca25-4b06-8ad1-269245dd6814}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application">
-      <UniqueIdentifier>{fa9c8d31-300b-4910-929b-979a100d9f86}</UniqueIdentifier>
+      <UniqueIdentifier>{8ab9d8b0-c642-493f-901b-fd3dde0f7352}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DllWrapper.h">
+    <ClInclude Include="..\..\src\AssertString.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="AssertString.h">
+    <ClInclude Include="..\..\src\DllWrapper.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="ShareStore.h">
+    <ClInclude Include="..\..\src\OtherStore.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="StaticStore.h">
+    <ClInclude Include="..\..\src\ShareStore.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="TypeGroup.h">
+    <ClInclude Include="..\..\src\StaticStore.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="OtherStore.h">
+    <ClInclude Include="..\..\src\TypeGroup.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DllWrapper.cpp">
+    <ClCompile Include="..\..\src\DllWrapper.cpp">
       <Filter>DynamicLib</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicLib.cpp">
+    <ClCompile Include="..\DynamicLib.cpp">
       <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>

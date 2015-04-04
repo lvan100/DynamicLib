@@ -3,12 +3,12 @@
 #endif
 
 /**
- * ÉùÃ÷ __cdecl µ¼³öº¯Êı
+ * å£°æ˜ __cdecl å¯¼å‡ºå‡½æ•°
  * 
  * @param _Name
- *        µ¼³öº¯ÊıµÄÃû³Æ
+ *        å¯¼å‡ºå‡½æ•°çš„åç§°
  * @param _Pointer
- *        º¯Êı²ÎÊıµÄÔ­ĞÍ
+ *        å‡½æ•°å‚æ•°çš„åŸå‹
  */
 #define DEFINE_CDECL_FUNCTION(_Name, _Pointer) \
 	DEFINE_FUNCTION(_Name, _Pointer, __cdecl)
@@ -18,12 +18,12 @@
 #endif
 
 /**
- * ÉùÃ÷ _stdcall µ¼³öº¯Êı
+ * å£°æ˜ _stdcall å¯¼å‡ºå‡½æ•°
  * 
  * @param _Name
- *        µ¼³öº¯ÊıµÄÃû³Æ
+ *        å¯¼å‡ºå‡½æ•°çš„åç§°
  * @param _Pointer
- *        º¯Êı²ÎÊıµÄÔ­ĞÍ
+ *        å‡½æ•°å‚æ•°çš„åŸå‹
  */
 #define DEFINE_STDCALL_FUNCTION(_Name, _Pointer) \
 	DEFINE_FUNCTION(_Name, _Pointer, _stdcall)
@@ -33,7 +33,7 @@
 #endif
 
 /**
- * Æô¶¯ÀÁ¼ÓÔØÄ£Ê½£¬Ö»Õë¶Ô ShareDllWrapper ÓĞĞ§
+ * å¯åŠ¨æ‡’åŠ è½½æ¨¡å¼ï¼Œåªé’ˆå¯¹ ShareDllWrapper æœ‰æ•ˆ
  */
 #define DEFINE_DEFAULT_FILE(_FileName) \
 	OVERRIDE_TYPE bool LazyLoad() { return true; } \

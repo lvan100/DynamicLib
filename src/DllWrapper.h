@@ -12,24 +12,24 @@ typedef void* HMODULE;
 #include <memory>
 
 /**
- * º¯ÊıÖ¸ÕëµÄÈİÆ÷
+ * å‡½æ•°æŒ‡é’ˆçš„å®¹å™¨
  */
 struct PtrHolder {
 
 	/**
-	 * ÕæÕıµÄÖ¸Õë
+	 * çœŸæ­£çš„æŒ‡é’ˆ
 	 */
 	void* ptr;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	PtrHolder(){
 		ptr = nullptr;
 	}
 
 	/**
-	 * ¸³Öµ¹¹Ôìº¯Êı
+	 * èµ‹å€¼æ„é€ å‡½æ•°
 	 */
 	PtrHolder(const PtrHolder& other) {
 		ptr = other.ptr;
@@ -38,24 +38,24 @@ struct PtrHolder {
 };
 
 /**
- * ¶¨Òå±ê×¼×Ö·û´®Àà
+ * å®šä¹‰æ ‡å‡†å­—ç¬¦ä¸²ç±»
  */
 #ifndef STD_STRING_TYPE
 typedef std::string StdString;
 #endif
 
 /**
- * ¶¨Òåµ¼³öº¯ÊıÁĞ±í£¬´æ´¢Ò»°ãµÄº¯ÊıÖ¸Õë
+ * å®šä¹‰å¯¼å‡ºå‡½æ•°åˆ—è¡¨ï¼Œå­˜å‚¨ä¸€èˆ¬çš„å‡½æ•°æŒ‡é’ˆ
  */
 typedef std::vector<PtrHolder*> FuncList;
 
 /**
- * ¶¨Òåµ¼³öº¯ÊıÁĞ±í£¬´æ´¢°²È«µÄº¯ÊıÖ¸Õë
+ * å®šä¹‰å¯¼å‡ºå‡½æ•°åˆ—è¡¨ï¼Œå­˜å‚¨å®‰å…¨çš„å‡½æ•°æŒ‡é’ˆ
  */
 typedef std::vector<std::shared_ptr<PtrHolder>> SafeFuncList;
 
 /**
- * ¶¯Ì¬Á´½Ó/¹²Ïí¿â°ü×°Àà,¾²Ì¬´æ´¢²ßÂÔ
+ * åŠ¨æ€é“¾æ¥/å…±äº«åº“åŒ…è£…ç±»,é™æ€å­˜å‚¨ç­–ç•¥
  */
 template<typename _Type>
 class StaticDllWrapper {
@@ -63,201 +63,201 @@ class StaticDllWrapper {
 public:
 
 	/**
-	 * »ñÈ¡µ±Ç°Ä£¿éµÄ±êÇ©
+	 * è·å–å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 * 
-	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ±êÇ©
+	 * @return è¿”å›å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 */
 	static StdString GetTag() {
 		return _tag;
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ä£¿éµÄ±êÇ©
+	 * è®¾ç½®å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 *
 	 * @param tag
-	 *         Ä£¿éµÄ±êÇ©
+	 *         æ¨¡å—çš„æ ‡ç­¾
 	 */
 	static void SetTag(StdString tag) {
 		_tag = tag;
 	}
 
 	/**
-	 * ¼ÓÔØÄ£¿é¡£ÖØ¸´¼ÓÔØÇ°Îñ±Ø
-	 * µ÷ÓÃFree()ÊÍ·ÅÒÑ¼ÓÔØÄ£¿é¡£
+	 * åŠ è½½æ¨¡å—ã€‚é‡å¤åŠ è½½å‰åŠ¡å¿…
+	 * è°ƒç”¨Free()é‡Šæ”¾å·²åŠ è½½æ¨¡å—ã€‚
 	 *
 	 * @param path
-	 *        Ä£¿éµÄ¾ø¶ÔÂ·¾¶
-	 * @return ¼ÓÔØ³É¹¦·µ»Ø true£¬Ê§°Ü·µ»Ø false¡£
+	 *        æ¨¡å—çš„ç»å¯¹è·¯å¾„
+	 * @return åŠ è½½æˆåŠŸè¿”å› trueï¼Œå¤±è´¥è¿”å› falseã€‚
 	 */
 	static bool Load(StdString path);
 
 	/**
-	 * »ñÈ¡µ±Ç°Ä£¿éµÄÎÄ¼ş¾ä±ú
+	 * è·å–å½“å‰æ¨¡å—çš„æ–‡ä»¶å¥æŸ„
 	 * 
-	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ¾ä±ú
+	 * @return è¿”å›å½“å‰æ¨¡å—çš„å¥æŸ„
 	 */
 	static HMODULE GetHandle() {
 		return m_hModule;
 	}
 
 	/**
-	 * ÊÍ·ÅÄ£¿é
+	 * é‡Šæ”¾æ¨¡å—
 	 */
 	static void Free();
 
 	/**
-	 * »ñÈ¡º¯ÊıÈë¿Ú
+	 * è·å–å‡½æ•°å…¥å£
 	 * 
 	 * @param funcPtr
-	 *        º¯ÊıÖ¸ÕëµÄÈİÆ÷
+	 *        å‡½æ•°æŒ‡é’ˆçš„å®¹å™¨
 	 * @param procName
-	 *        µ¼³öº¯ÊıµÄÃû³Æ
-	 * @return ³É¹¦»ñµÃµØÖ··µ»Ø true£¬·ñÔò·µ»Ø false¡£
+	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
+	 * @return æˆåŠŸè·å¾—åœ°å€è¿”å› trueï¼Œå¦åˆ™è¿”å› falseã€‚
 	 */
 	static bool GetProcAddress(PtrHolder* funcPtr, StdString procName);
 
 protected:
 	/**
-	 * Éú³Éº¯ÊıÖ¸ÕëµÄÈİÆ÷¶ÔÏó
+	 * ç”Ÿæˆå‡½æ•°æŒ‡é’ˆçš„å®¹å™¨å¯¹è±¡
 	 *
-	 * @return ·µ»ØÉú³ÉµÄÖ¸ÕëÈİÆ÷¶ÔÏó
+	 * @return è¿”å›ç”Ÿæˆçš„æŒ‡é’ˆå®¹å™¨å¯¹è±¡
 	 */
 	static PtrHolder* MakePtrHolder();
 
 	/**
-	 * ÊÇ·ñÊ¹ÓÃÀÁ¼ÓÔØÄ£Ê½
+	 * æ˜¯å¦ä½¿ç”¨æ‡’åŠ è½½æ¨¡å¼
 	 *
-	 * @return Ê¹ÓÃÀÁ¼ÓÔØÄ£Ê½·µ»Ø true£¬·ñÔò·µ»Ø false¡£
+	 * @return ä½¿ç”¨æ‡’åŠ è½½æ¨¡å¼è¿”å› trueï¼Œå¦åˆ™è¿”å› falseã€‚
 	 */
 	static bool LazyLoad() { 
 		return false; 
 	}
 
 	/**
-	 * ³¢ÊÔ¼ÓÔØÄ£¿éÎÄ¼ş
+	 * å°è¯•åŠ è½½æ¨¡å—æ–‡ä»¶
 	 */ 
 	static void TryLoad() {
 	}
 
 protected:
 	/**
-	 * Ä£¿é¾ä±ú
+	 * æ¨¡å—å¥æŸ„
 	 */
 	static HMODULE m_hModule;
 
 	/**
-	 * º¯ÊıÈë¿Ú±í
+	 * å‡½æ•°å…¥å£è¡¨
 	 */
 	static SafeFuncList procs;
 
 	/**
-	 * µ±Ç°Ä£¿éµÄ±êÇ©
+	 * å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 */
 	static StdString _tag;
 };
 
 /**
- * ¶¯Ì¬Á´½Ó/¹²Ïí¿â°ü×°Àà,¶¯Ì¬´æ´¢²ßÂÔ
+ * åŠ¨æ€é“¾æ¥/å…±äº«åº“åŒ…è£…ç±»,åŠ¨æ€å­˜å‚¨ç­–ç•¥
  */
 template<typename _Type>
  class ShareDllWrapper {
 
 public:
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	ShareDllWrapper(StdString tag);
 
 	/**
-	 * Îö¹¹º¯Êı
+	 * ææ„å‡½æ•°
 	 */
 	~ShareDllWrapper(void);
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	ShareDllWrapper();
 
 	/**
-	 * »ñÈ¡µ±Ç°Ä£¿éµÄ±êÇ©
+	 * è·å–å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 * 
-	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ±êÇ©
+	 * @return è¿”å›å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 */
 	StdString GetTag() {
 		return _tag;
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ä£¿éµÄ±êÇ©
+	 * è®¾ç½®å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 *
 	 * @param tag
-	 *         Ä£¿éµÄ±êÇ©
+	 *         æ¨¡å—çš„æ ‡ç­¾
 	 */
 	void SetTag(StdString tag) {
 		_tag = tag;
 	}
 
 	/**
-	 * ¼ÓÔØÄ£¿é¡£ÖØ¸´¼ÓÔØÇ°Îñ±Ø
-	 * µ÷ÓÃFree()ÊÍ·ÅÒÑ¼ÓÔØÄ£¿é¡£
+	 * åŠ è½½æ¨¡å—ã€‚é‡å¤åŠ è½½å‰åŠ¡å¿…
+	 * è°ƒç”¨Free()é‡Šæ”¾å·²åŠ è½½æ¨¡å—ã€‚
 	 *
 	 * @param path
-	 *        Ä£¿éµÄ¾ø¶ÔÂ·¾¶
+	 *        æ¨¡å—çš„ç»å¯¹è·¯å¾„
 	 */
 	bool Load(StdString path);
 
 	/**
-	 * »ñÈ¡µ±Ç°Ä£¿éµÄÎÄ¼ş¾ä±ú
+	 * è·å–å½“å‰æ¨¡å—çš„æ–‡ä»¶å¥æŸ„
 	 * 
-	 * @return ·µ»Øµ±Ç°Ä£¿éµÄ¾ä±ú
+	 * @return è¿”å›å½“å‰æ¨¡å—çš„å¥æŸ„
 	 */
 	HMODULE GetHandle() {
 		return m_hModule;
 	}
 
 	/**
-	 * ÊÍ·ÅÄ£¿é
+	 * é‡Šæ”¾æ¨¡å—
 	 */
 	void Free();
 
 	/**
-	 * »ñÈ¡º¯ÊıÈë¿Ú
+	 * è·å–å‡½æ•°å…¥å£
 	 * 
 	 * @param funcPtr
-	 *        º¯ÊıÖ¸ÕëµÄÈİÆ÷
+	 *        å‡½æ•°æŒ‡é’ˆçš„å®¹å™¨
 	 * @param procName
-	 *        µ¼³öº¯ÊıµÄÃû³Æ
-	 * @return ³É¹¦»ñµÃµØÖ··µ»Ø true£¬·ñÔò·µ»Ø false¡£
+	 *        å¯¼å‡ºå‡½æ•°çš„åç§°
+	 * @return æˆåŠŸè·å¾—åœ°å€è¿”å› trueï¼Œå¦åˆ™è¿”å› falseã€‚
 	 */
 	bool GetProcAddress(PtrHolder* funcPtr, StdString procName);
 
 protected:
 	/**
-	 * ÊÇ·ñÊ¹ÓÃÀÁ¼ÓÔØÄ£Ê½
+	 * æ˜¯å¦ä½¿ç”¨æ‡’åŠ è½½æ¨¡å¼
 	 */
 	virtual bool LazyLoad() { 
 		return false; 
 	}
 
 	/**
-	 * ³¢ÊÔ¼ÓÔØÄ£¿éÎÄ¼ş
+	 * å°è¯•åŠ è½½æ¨¡å—æ–‡ä»¶
 	 */ 
 	virtual void TryLoad() {
 	}
 
 protected:
 	/**
-	 * Ä£¿é¾ä±ú
+	 * æ¨¡å—å¥æŸ„
 	 */
 	HMODULE m_hModule;
 
 	/**
-	 * µ±Ç°Ä£¿éµÄ±êÇ©
+	 * å½“å‰æ¨¡å—çš„æ ‡ç­¾
 	 */
 	StdString _tag;
 
 	/**
-	 * º¯ÊıÈë¿Ú±í
+	 * å‡½æ•°å…¥å£è¡¨
 	 */
 	FuncList procs;
 };
