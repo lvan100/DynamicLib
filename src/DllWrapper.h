@@ -24,14 +24,14 @@ struct PtrHolder {
 	/**
 	 * 构造函数
 	 */
-	PtrHolder(){
-		ptr = nullptr;
+	PtrHolder() : ptr(nullptr) {
 	}
 
 	/**
 	 * 赋值构造函数
 	 */
-	PtrHolder(const PtrHolder& other) {
+	PtrHolder(const PtrHolder& other)
+		: ptr(nullptr)  {
 		ptr = other.ptr;
 	}
 
@@ -244,6 +244,13 @@ protected:
 	 */ 
 	virtual void TryLoad() {
 	}
+
+private:
+	/**
+	 * 绝对不需要拷贝使用!
+	 */
+	ShareDllWrapper(const ShareDllWrapper&);
+	ShareDllWrapper operator=(const ShareDllWrapper&);
 
 protected:
 	/**

@@ -38,3 +38,4 @@
 #define DEFINE_DEFAULT_FILE(_FileName) \
 	OVERRIDE_TYPE bool LazyLoad() { return true; } \
 	OVERRIDE_TYPE void TryLoad() { Load(_FileName); }
+

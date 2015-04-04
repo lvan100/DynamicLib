@@ -1,6 +1,18 @@
 #ifndef Type_Group_H
 #define Type_Group_H
 
+#ifndef WIN32
+
+#ifndef _stdcall
+#define _stdcall __attribute__((__stdcall__))
+#endif /* _stdcall */
+
+#ifndef __cdecl
+#define __cdecl __attribute__((__cdecl__))
+#endif /* __cdecl */
+
+#endif /* WIN32 */
+
 /**
  * 定义空类型，用于模板参数占位
  */
@@ -48,8 +60,6 @@ struct BaseTypeGroup_13
 	typedef _Arg12	Type_Arg12;
 	typedef _Arg13	Type_Arg13;
 
-	static const int Args = 13;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -64,6 +74,23 @@ struct BaseTypeGroup_13
 		, Type_Arg12
 		, Type_Arg13);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 arg12
+		, Type_Arg13 arg13){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -77,6 +104,23 @@ struct BaseTypeGroup_13
 		, Type_Arg11
 		, Type_Arg12
 		, Type_Arg13);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 arg12
+		, Type_Arg13 arg13){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
+	}
 };
 
 template
@@ -147,8 +191,6 @@ struct BaseTypeGroup_12
 	typedef _Arg12	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 12;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -162,6 +204,23 @@ struct BaseTypeGroup_12
 		, Type_Arg11
 		, Type_Arg12);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 arg12
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -174,6 +233,23 @@ struct BaseTypeGroup_12
 		, Type_Arg10
 		, Type_Arg11
 		, Type_Arg12);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 arg12
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+	}
 };
 
 template
@@ -241,8 +317,6 @@ struct BaseTypeGroup_11
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 11;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -255,6 +329,23 @@ struct BaseTypeGroup_11
 		, Type_Arg10
 		, Type_Arg11);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -266,6 +357,23 @@ struct BaseTypeGroup_11
 		, Type_Arg9
 		, Type_Arg10
 		, Type_Arg11);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 arg11
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+	}
 };
 
 template
@@ -330,8 +438,6 @@ struct BaseTypeGroup_10
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 10;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -343,6 +449,23 @@ struct BaseTypeGroup_10
 		, Type_Arg9
 		, Type_Arg10);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -353,6 +476,23 @@ struct BaseTypeGroup_10
 		, Type_Arg8
 		, Type_Arg9
 		, Type_Arg10);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 arg10
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+	}
 };
 
 template
@@ -414,8 +554,6 @@ struct BaseTypeGroup_9
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 9;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -426,6 +564,23 @@ struct BaseTypeGroup_9
 		, Type_Arg8
 		, Type_Arg9);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -435,6 +590,23 @@ struct BaseTypeGroup_9
 		, Type_Arg7
 		, Type_Arg8
 		, Type_Arg9);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9 arg9
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+	}
 };
 
 template
@@ -493,8 +665,6 @@ struct BaseTypeGroup_8
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 8;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -504,6 +674,23 @@ struct BaseTypeGroup_8
 		, Type_Arg7
 		, Type_Arg8);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -512,6 +699,23 @@ struct BaseTypeGroup_8
 		, Type_Arg6
 		, Type_Arg7
 		, Type_Arg8);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8 arg8
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+	}
 };
 
 template
@@ -567,8 +771,6 @@ struct BaseTypeGroup_7
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 7;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -577,6 +779,23 @@ struct BaseTypeGroup_7
 		, Type_Arg6
 		, Type_Arg7);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -584,6 +803,23 @@ struct BaseTypeGroup_7
 		, Type_Arg5
 		, Type_Arg6
 		, Type_Arg7);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7 arg7
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+	}
 };
 
 template
@@ -636,8 +872,6 @@ struct BaseTypeGroup_6
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 6;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
@@ -645,12 +879,46 @@ struct BaseTypeGroup_6
 		, Type_Arg5
 		, Type_Arg6);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
 		, Type_Arg4
 		, Type_Arg5
 		, Type_Arg6);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6 arg6
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5, arg6);
+	}
 };
 
 template
@@ -700,19 +968,51 @@ struct BaseTypeGroup_5
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 5;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
 		, Type_Arg4
 		, Type_Arg5);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
 		, Type_Arg4
 		, Type_Arg5);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5 arg5
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4, arg5);
+	}
 };
 
 template
@@ -759,17 +1059,49 @@ struct BaseTypeGroup_4
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 4;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
 		, Type_Arg4);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3, arg4);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3
 		, Type_Arg4);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4 arg4
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3, arg4);
+	}
 };
 
 template
@@ -813,15 +1145,47 @@ struct BaseTypeGroup_3
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 3;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2, arg3);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2
 		, Type_Arg3);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3 arg3
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2, arg3);
+	}
 };
 
 template
@@ -862,13 +1226,45 @@ struct BaseTypeGroup_2
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 2;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1
 		, Type_Arg2);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1, arg2);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1
 		, Type_Arg2);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2 arg2
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1, arg2);
+	}
 };
 
 template
@@ -906,11 +1302,43 @@ struct BaseTypeGroup_1
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 1;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)(Type_Arg1);
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2  /* arg2  */
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)(arg1);
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)(Type_Arg1);
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1 arg1
+		, Type_Arg2  /* arg2  */
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)(arg1);
+	}
 };
 
 template
@@ -944,11 +1372,43 @@ struct BaseTypeGroup_0
 	typedef _Null	Type_Arg12;
 	typedef _Null	Type_Arg13;
 
-	static const int Args = 0;
-
 	typedef _Result(_stdcall *_stdcall_Ptr)();
 
+	static _Result _stdcall_Call(void* ptr
+		, Type_Arg1  /* arg1  */
+		, Type_Arg2  /* arg2  */
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((_stdcall_Ptr)ptr)();
+	}
+
 	typedef _Result(__cdecl *__cdecl_Ptr)();
+
+	static _Result __cdecl_Call(void* ptr
+		, Type_Arg1  /* arg1  */
+		, Type_Arg2  /* arg2  */
+		, Type_Arg3  /* arg3  */
+		, Type_Arg4  /* arg4  */
+		, Type_Arg5  /* arg5  */
+		, Type_Arg6  /* arg6  */
+		, Type_Arg7  /* arg7  */
+		, Type_Arg8  /* arg8  */
+		, Type_Arg9  /* arg9  */
+		, Type_Arg10 /* arg10 */
+		, Type_Arg11 /* arg11 */
+		, Type_Arg12 /* arg12 */
+		, Type_Arg13 /* arg13 */){
+			return ((__cdecl_Ptr)ptr)();
+	}
 };
 
 template<typename _Result>

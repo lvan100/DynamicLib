@@ -42,7 +42,7 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
-#endif
+#endif /* WIN32 */
 
 #include "ShareStore.h"
 
@@ -178,6 +178,7 @@ int main(int argc, char* argv[])
 	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
 	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
+
 	A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
 
 	// 调用参数太少
@@ -194,6 +195,7 @@ int main(int argc, char* argv[])
 	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
 	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
+
 	A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3);
 
 	//////////////////////////////////////////////////////////////////////////
