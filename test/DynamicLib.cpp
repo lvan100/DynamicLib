@@ -1,23 +1,16 @@
-#include "ShareStore.h"
+Ôªø#include "ShareStore.h"
 
-class A : public BaseDllWrapper<A> {
-	DEFINE_CDECL_FUNCTION(Func0, void());
-	DEFINE_CDECL_FUNCTION(Func1, void(int));
-	DEFINE_CDECL_FUNCTION(Func2, void(int, int));
-	DEFINE_CDECL_FUNCTION(Func3, void(int, int, int));
-	DEFINE_CDECL_FUNCTION(Func4, void(int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func5, void(int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func6, void(int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func7, void(int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func8, void(int, int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func9, void(int, int, int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func10, void(int, int, int, int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func11, void(int, int, int, int, int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func12, void(int, int, int, int, int, int, int, int, int, int, int, int));
-	DEFINE_CDECL_FUNCTION(Func13, void(int, int, int, int, int, int, int, int, int, int, int, int, int));
-
-	// ◊Ó∂‡≤ªƒ‹≥¨π˝13∏ˆ≤Œ ˝ >> error C2027:  π”√¡ÀŒ¥∂®“Â¿‡–Õ°∞_Get_TypeGroup<_Tx>°±
-	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
+class A: public BaseDllWrapper<A> {
+	DEFINE_CDECL_FUNCTION(Func0, void())
+	DEFINE_CDECL_FUNCTION(Func1, void(int))
+	DEFINE_CDECL_FUNCTION(Func2, void(int, int))
+	DEFINE_CDECL_FUNCTION(Func3, void(int, int, int))
+	DEFINE_CDECL_FUNCTION(Func4, void(int, int, int, int))
+	DEFINE_CDECL_FUNCTION(Func5, void(int, int, int, int, int))
+	DEFINE_CDECL_FUNCTION(Func6, void(int, int, int, int, int, int))
+	DEFINE_CDECL_FUNCTION(Func7, void(int, int, int, int, int, int, int))
+	DEFINE_CDECL_FUNCTION(Func8, void(int, int, int, int, int, int, int, int))
+	DEFINE_CDECL_FUNCTION(Func9, void(int, int, int, int, int, int, int, int, int))
 };
 
 #ifdef WIN32
@@ -28,7 +21,7 @@ class ShareUser32 : public BaseDllWrapper<ShareUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
 	DEFINE_STDCALL_FUNCTION(GetDesktopWindow, HWND());
 
-	// ∂ØÃ¨¥Ê¥¢ π”√¿¡º”‘ÿƒ£ Ω
+	// Âä®ÊÄÅÂ≠òÂÇ®‰ΩøÁî®ÊáíÂä†ËΩΩÊ®°Âºè
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
@@ -38,7 +31,7 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 	DEFINE_STDCALL_FUNCTION(GetClientRect, BOOL(HWND, LPRECT));
 	DEFINE_STDCALL_FUNCTION(GetDesktopWindow, HWND());
 
-	// æ≤Ã¨¥Ê¥¢ π”√¿¡º”‘ÿƒ£ Ω
+	// ÈùôÊÄÅÂ≠òÂÇ®‰ΩøÁî®ÊáíÂä†ËΩΩÊ®°Âºè
 	DEFINE_DEFAULT_FILE("User32.dll");
 };
 
@@ -46,157 +39,77 @@ class StaticUser32 : public BaseDllWrapper<StaticUser32> {
 
 #include "ShareStore.h"
 
-class DllTest : public BaseDllWrapper<DllTest> {
-	DEFINE_CDECL_FUNCTION(fnDllTest, int());
+class DllTest: public BaseDllWrapper<DllTest> {
+	DEFINE_CDECL_FUNCTION(fnDllTest, int())
 };
 
 #include <assert.h>
+#include <unistd.h>
 
-int main(int argc, char* argv[])
-{
-	A().Func0<_Null>();
+int main(int argc, char* argv[]) {
+	A().Func0();
 
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func1<_Null>(); 
+	A().Func1();
+	A().Func1(1);
 
-	A().Func1<_Null>(1);
+	A().Func2();
+	A().Func2(1);
+	A().Func2(1, 2);
 
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func2<_Null>(); 
-	// A().Func2<_Null>(1);
+	A().Func3();
+	A().Func3(1);
+	A().Func3(1, 2);
+	A().Func3(1, 2, 3);
 
-	A().Func2<_Null>(1, 2);
+	A().Func4();
+	A().Func4(1);
+	A().Func4(1, 2);
+	A().Func4(1, 2, 3);
+	A().Func4(1, 2, 3, 4);
 
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func3<_Null>(); 
-	// A().Func3<_Null>(1);
-	// A().Func3<_Null>(1, 2);
+	A().Func5();
+	A().Func5(1);
+	A().Func5(1, 2);
+	A().Func5(1, 2, 3);
+	A().Func5(1, 2, 3, 4);
+	A().Func5(1, 2, 3, 4, 5);
 
-	A().Func3<_Null>(1, 2, 3);
+	A().Func6();
+	A().Func6(1);
+	A().Func6(1, 2);
+	A().Func6(1, 2, 3);
+	A().Func6(1, 2, 3, 4);
+	A().Func6(1, 2, 3, 4, 5);
+	A().Func6(1, 2, 3, 4, 5, 6);
 
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func4<_Null>(); 
-	// A().Func4<_Null>(1);
-	// A().Func4<_Null>(1, 2);
-	// A().Func4<_Null>(1, 2, 3);
+	A().Func7();
+	A().Func7(1);
+	A().Func7(1, 2);
+	A().Func7(1, 2, 3);
+	A().Func7(1, 2, 3, 4);
+	A().Func7(1, 2, 3, 4, 5);
+	A().Func7(1, 2, 3, 4, 5, 6);
+	A().Func7(1, 2, 3, 4, 5, 6, 7);
 
-	A().Func4<_Null>(1, 2, 3, 4);
+	A().Func8();
+	A().Func8(1, 2);
+	A().Func8(1, 2, 3);
+	A().Func8(1, 2, 3, 4);
+	A().Func8(1, 2, 3, 4, 5);
+	A().Func8(1, 2, 3, 4, 5, 6);
+	A().Func8(1, 2, 3, 4, 5, 6, 7);
+	A().Func8(1, 2, 3, 4, 5, 6, 7, 8);
 
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func5<_Null>(); 
-	// A().Func5<_Null>(1);
-	// A().Func5<_Null>(1, 2);
-	// A().Func5<_Null>(1, 2, 3);
-	// A().Func5<_Null>(1, 2, 3, 4);
-
-	A().Func5<_Null>(1, 2, 3, 4, 5);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func6<_Null>(); 
-	// A().Func6<_Null>(1);
-	// A().Func6<_Null>(1, 2);
-	// A().Func6<_Null>(1, 2, 3);
-	// A().Func6<_Null>(1, 2, 3, 4);
-	// A().Func6<_Null>(1, 2, 3, 4, 5);
-
-	A().Func6<_Null>(1, 2, 3, 4, 5, 6);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func7<_Null>(); 
-	// A().Func7<_Null>(1);
-	// A().Func7<_Null>(1, 2);
-	// A().Func7<_Null>(1, 2, 3);
-	// A().Func7<_Null>(1, 2, 3, 4);
-	// A().Func7<_Null>(1, 2, 3, 4, 5);
-	// A().Func7<_Null>(1, 2, 3, 4, 5, 6);
-
-	A().Func7<_Null>(1, 2, 3, 4, 5, 6, 7);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func8<_Null>();
-	// A().Func8<_Null>(1, 2);
-	// A().Func8<_Null>(1, 2, 3);
-	// A().Func8<_Null>(1, 2, 3, 4);
-	// A().Func8<_Null>(1, 2, 3, 4, 5);
-	// A().Func8<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func8<_Null>(1, 2, 3, 4, 5, 6, 7);
-
-	A().Func8<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func9<_Null>(); 
-	// A().Func9<_Null>(1);
-	// A().Func9<_Null>(1, 2);
-	// A().Func9<_Null>(1, 2, 3);
-	// A().Func9<_Null>(1, 2, 3, 4);
-	// A().Func9<_Null>(1, 2, 3, 4, 5);
-	// A().Func9<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7);
-	// A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-
-	A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func10<_Null>(); 
-	// A().Func10<_Null>(1);
-	// A().Func10<_Null>(1, 2);
-	// A().Func10<_Null>(1, 2, 3);
-	// A().Func10<_Null>(1, 2, 3, 4);
-	// A().Func10<_Null>(1, 2, 3, 4, 5);
-	// A().Func10<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7);
-	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-	A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func11<_Null>(); 
-	// A().Func11<_Null>(1);
-	// A().Func11<_Null>(1, 2);
-	// A().Func11<_Null>(1, 2, 3);
-	// A().Func11<_Null>(1, 2, 3, 4);
-	// A().Func11<_Null>(1, 2, 3, 4, 5);
-	// A().Func11<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7);
-	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-
-	A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func12<_Null>(); 
-	// A().Func12<_Null>(1);
-	// A().Func12<_Null>(1, 2);
-	// A().Func12<_Null>(1, 2, 3);
-	// A().Func12<_Null>(1, 2, 3, 4);
-	// A().Func12<_Null>(1, 2, 3, 4, 5);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-
-	A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
-
-	// µ˜”√≤Œ ˝Ã´…Ÿ
-	// A().Func13<_Null>(); 
-	// A().Func13<_Null>(1);
-	// A().Func13<_Null>(1, 2);
-	// A().Func13<_Null>(1, 2, 3);
-	// A().Func13<_Null>(1, 2, 3, 4);
-	// A().Func13<_Null>(1, 2, 3, 4, 5);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
-
-	A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3);
+	A().Func9();
+	A().Func9(1);
+	A().Func9(1, 2);
+	A().Func9(1, 2, 3);
+	A().Func9(1, 2, 3, 4);
+	A().Func9(1, 2, 3, 4, 5);
+	A().Func9(1, 2, 3, 4, 5, 6);
+	A().Func9(1, 2, 3, 4, 5, 6, 7);
+	A().Func9(1, 2, 3, 4, 5, 6, 7, 8);
+	A().Func9(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -204,31 +117,48 @@ int main(int argc, char* argv[])
 
 	RECT rcWnd;
 
-	// ∂ØÃ¨¥Ê¥¢¿¡º”‘ÿ
+	// Âä®ÊÄÅÂ≠òÂÇ®ÊáíÂä†ËΩΩ
 	ShareUser32 mUser32;
-	HWND hWnd = mUser32.GetDesktopWindow<_Null>();
-	mUser32.GetClientRect<_Null>(hWnd, &rcWnd);
+	HWND hWnd = mUser32.GetDesktopWindow();
+	mUser32.GetClientRect(hWnd, &rcWnd);
 	mUser32.Free();
 
-	// æ≤Ã¨¥Ê¥¢¿¡º”‘ÿ
-	hWnd = StaticUser32::GetDesktopWindow<_Null>();
-	StaticUser32::GetClientRect<_Null>(hWnd, &rcWnd);
+	// ÈùôÊÄÅÂ≠òÂÇ®ÊáíÂä†ËΩΩ
+	hWnd = StaticUser32::GetDesktopWindow();
+	StaticUser32::GetClientRect(hWnd, &rcWnd);
 	StaticUser32::Free();
 
 #endif
 
 	//////////////////////////////////////////////////////////////////////////
 
+	char buffer[256];
+	getcwd(buffer, sizeof(buffer));
+
+	//////////////////////////////////////////////////////////////////////////
+
 	DllTest DllTestInst;
 
-	// ∂ØÃ¨¥Ê¥¢«–ªªº”‘ÿ◊ ‘¥
+	// Âä®ÊÄÅÂ≠òÂÇ®ÂàáÊç¢Âä†ËΩΩËµÑÊ∫ê
+#ifdef WIN32
 	DllTestInst.Load("DllTestOne.dll");
-	assert(1 == DllTestInst.fnDllTest<_Null>());
+#else
+	StdString OnePath(buffer);
+	OnePath.append("/DllTestOne.so");
+	DllTestInst.Load(OnePath.c_str());
+#endif
+	assert(1 == DllTestInst.fnDllTest());
 	DllTestInst.Free();
 
-	// ∂ØÃ¨¥Ê¥¢«–ªªº”‘ÿ◊ ‘¥
+	// Âä®ÊÄÅÂ≠òÂÇ®ÂàáÊç¢Âä†ËΩΩËµÑÊ∫ê
+#ifdef WIN32
 	DllTestInst.Load("DllTestTwo.dll");
-	assert(2 == DllTestInst.fnDllTest<_Null>());
+#else
+	StdString TwoPath(buffer);
+	TwoPath.append("/DllTestTwo.so");
+	DllTestInst.Load(TwoPath.c_str());
+#endif
+	assert(2 == DllTestInst.fnDllTest());
 	DllTestInst.Free();
 
 	return 0;

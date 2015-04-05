@@ -1,4 +1,4 @@
-#ifndef Dll_Wrapper_H
+﻿#ifndef Dll_Wrapper_H
 #define Dll_Wrapper_H
 
 #ifndef WIN32
@@ -24,14 +24,15 @@ struct PtrHolder {
 	/**
 	 * 构造函数
 	 */
-	PtrHolder() : ptr(nullptr) {
+	PtrHolder() :
+			ptr(nullptr) {
 	}
 
 	/**
 	 * 赋值构造函数
 	 */
-	PtrHolder(const PtrHolder& other)
-		: ptr(nullptr)  {
+	PtrHolder(const PtrHolder& other) :
+			ptr(nullptr) {
 		ptr = other.ptr;
 	}
 
@@ -129,13 +130,13 @@ protected:
 	 *
 	 * @return 使用懒加载模式返回 true，否则返回 false。
 	 */
-	static bool LazyLoad() { 
-		return false; 
+	static bool LazyLoad() {
+		return false;
 	}
 
 	/**
 	 * 尝试加载模块文件
-	 */ 
+	 */
 	static void TryLoad() {
 	}
 
@@ -160,7 +161,7 @@ protected:
  * 动态链接/共享库包装类,动态存储策略
  */
 template<typename _Type>
- class ShareDllWrapper {
+class ShareDllWrapper {
 
 public:
 	/**
@@ -171,7 +172,7 @@ public:
 	/**
 	 * 析构函数
 	 */
-	~ShareDllWrapper(void);
+	virtual ~ShareDllWrapper(void);
 
 	/**
 	 * 构造函数
@@ -235,13 +236,13 @@ protected:
 	/**
 	 * 是否使用懒加载模式
 	 */
-	virtual bool LazyLoad() { 
-		return false; 
+	virtual bool LazyLoad() {
+		return false;
 	}
 
 	/**
 	 * 尝试加载模块文件
-	 */ 
+	 */
 	virtual void TryLoad() {
 	}
 

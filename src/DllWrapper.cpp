@@ -1,4 +1,4 @@
-#ifndef Dll_Wrapper_Cpp
+﻿#ifndef Dll_Wrapper_Cpp
 #define Dll_Wrapper_Cpp
 
 #include "DllWrapper.h"
@@ -8,34 +8,33 @@
 #include <dlfcn.h>
 #endif
 
-namespace /* 匿名命名空间保护本文件内部函数 */
-{
+namespace /* 匿名命名空间保护本文件内部函数 */{
 
-	HMODULE Load(StdString path) {
+HMODULE Load(StdString path) {
 #ifdef WIN32
-		return ::LoadLibraryA(path.c_str());
+	return ::LoadLibraryA(path.c_str());
 #else
-		return dlopen(path.c_str(), RTLD_LAZY);
+	return dlopen(path.c_str(), RTLD_LAZY);
 #endif
-	}
+}
 
-	void Free(HMODULE hModule) {
+void Free(HMODULE hModule) {
 #ifdef WIN32
-		::FreeLibrary (hModule);
+	::FreeLibrary (hModule);
 #else
-		dlclose(hModule);
+	dlclose(hModule);
 #endif
-	}
+}
 
-	void* GetProc(HMODULE hModule, StdString procName) {
-		void* addr =
+void* GetProc(HMODULE hModule, StdString procName) {
+	void* addr =
 #ifdef WIN32
 			::GetProcAddress(hModule, procName.c_str());
 #else
 			dlsym(hModule, procName.c_str());
 #endif
-		return addr;
-	}
+	return addr;
+}
 
 }
 
@@ -50,10 +49,10 @@ template<typename _Type>
 SafeFuncList StaticDllWrapper<_Type>::procs;
 
 template<typename _Type>
-HMODULE	StaticDllWrapper<_Type>::m_hModule = nullptr;
+HMODULE StaticDllWrapper<_Type>::m_hModule = nullptr;
 
 template<typename _Type>
-PtrHolder* StaticDllWrapper<_Type>::MakePtrHolder(){
+PtrHolder* StaticDllWrapper<_Type>::MakePtrHolder() {
 	std::shared_ptr<PtrHolder> ptr(new PtrHolder());
 	procs.push_back(ptr);
 	return ptr.get();
@@ -64,8 +63,7 @@ bool StaticDllWrapper<_Type>::Load(StdString path) {
 	if (m_hModule == nullptr) {
 		m_hModule = ::Load(path);
 	} else {
-		ASSERT_STRING(false,
-			"already load, please use Free() before.");
+		ASSERT_STRING(false, "already load, please use Free() before.");
 	}
 	return (m_hModule != nullptr);
 }
@@ -76,28 +74,23 @@ void StaticDllWrapper<_Type>::Free() {
 		::Free(m_hModule);
 		m_hModule = nullptr;
 
-		for (auto iter = procs.begin(); 
-			iter != procs.end();
-			iter++)
-		{
+		for (auto iter = procs.begin(); iter != procs.end(); iter++) {
 			(*iter)->ptr = nullptr;
 		}
 	}
 }
 
 template<typename _Type>
-bool StaticDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procName) {
-
+bool StaticDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr,
+		StdString procName) {
 	if (m_hModule == nullptr) {
 		if (_Type::LazyLoad()) {
 			_Type::TryLoad();
 		}
 	}
-
 	if (m_hModule == nullptr) {
 		return false;
 	}
-
 	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);
 }
 
@@ -106,13 +99,13 @@ bool StaticDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procN
 /************************************************************************/
 
 template<typename _Type>
-ShareDllWrapper<_Type>::ShareDllWrapper()
-	: m_hModule(nullptr) {
+ShareDllWrapper<_Type>::ShareDllWrapper() :
+		m_hModule(nullptr) {
 }
 
 template<typename _Type>
-ShareDllWrapper<_Type>::ShareDllWrapper(StdString tag)
-	: _tag(tag), m_hModule(nullptr) {
+ShareDllWrapper<_Type>::ShareDllWrapper(StdString tag) :
+		_tag(tag), m_hModule(nullptr) {
 }
 
 template<typename _Type>
@@ -125,8 +118,7 @@ bool ShareDllWrapper<_Type>::Load(StdString path) {
 	if (m_hModule == nullptr) {
 		m_hModule = ::Load(path);
 	} else {
-		ASSERT_STRING(false,
-			"already load, please use Free() before.");
+		ASSERT_STRING(false, "already load, please use Free() before.");
 	}
 	return (m_hModule != nullptr);
 }
@@ -137,10 +129,7 @@ void ShareDllWrapper<_Type>::Free() {
 		::Free(m_hModule);
 		m_hModule = nullptr;
 
-		for (auto iter = procs.begin(); 
-			iter != procs.end();
-			iter++)
-		{
+		for (auto iter = procs.begin(); iter != procs.end(); iter++) {
 			(*iter)->ptr = nullptr;
 		}
 
@@ -149,18 +138,16 @@ void ShareDllWrapper<_Type>::Free() {
 }
 
 template<typename _Type>
-bool ShareDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr, StdString procName) {
-
+bool ShareDllWrapper<_Type>::GetProcAddress(PtrHolder* funcPtr,
+		StdString procName) {
 	if (m_hModule == nullptr) {
-		if (LazyLoad())	{
+		if (LazyLoad()) {
 			TryLoad();
 		}
 	}
-
 	if (m_hModule == nullptr) {
 		return false;
 	}
-
 	return ((funcPtr->ptr = ::GetProc(m_hModule, procName)) != nullptr);
 }
 
