@@ -31,22 +31,22 @@
 public: \
 	\
 	static TypeGroup<_Pointer>::Type_Result _Name( \
-			TypeGroup<_Pointer>::Type_Arg1 arg1 = Default<TypeGroup<_Pointer>::Type_Arg1>()(), \
-			TypeGroup<_Pointer>::Type_Arg2 arg2 = Default<TypeGroup<_Pointer>::Type_Arg2>()(), \
-			TypeGroup<_Pointer>::Type_Arg3 arg3 = Default<TypeGroup<_Pointer>::Type_Arg3>()(), \
-			TypeGroup<_Pointer>::Type_Arg4 arg4 = Default<TypeGroup<_Pointer>::Type_Arg4>()(), \
-			TypeGroup<_Pointer>::Type_Arg5 arg5 = Default<TypeGroup<_Pointer>::Type_Arg5>()(), \
-			TypeGroup<_Pointer>::Type_Arg6 arg6 = Default<TypeGroup<_Pointer>::Type_Arg6>()(), \
-			TypeGroup<_Pointer>::Type_Arg7 arg7 = Default<TypeGroup<_Pointer>::Type_Arg7>()(), \
-			TypeGroup<_Pointer>::Type_Arg8 arg8 = Default<TypeGroup<_Pointer>::Type_Arg8>()(), \
-			TypeGroup<_Pointer>::Type_Arg9 arg9 = Default<TypeGroup<_Pointer>::Type_Arg9>()()) \
+			TypeGroup<_Pointer>::Type_Arg1 arg1 = Default<TypeGroup<_Pointer>::Type_Arg1>::Value, \
+			TypeGroup<_Pointer>::Type_Arg2 arg2 = Default<TypeGroup<_Pointer>::Type_Arg2>::Value, \
+			TypeGroup<_Pointer>::Type_Arg3 arg3 = Default<TypeGroup<_Pointer>::Type_Arg3>::Value, \
+			TypeGroup<_Pointer>::Type_Arg4 arg4 = Default<TypeGroup<_Pointer>::Type_Arg4>::Value, \
+			TypeGroup<_Pointer>::Type_Arg5 arg5 = Default<TypeGroup<_Pointer>::Type_Arg5>::Value, \
+			TypeGroup<_Pointer>::Type_Arg6 arg6 = Default<TypeGroup<_Pointer>::Type_Arg6>::Value, \
+			TypeGroup<_Pointer>::Type_Arg7 arg7 = Default<TypeGroup<_Pointer>::Type_Arg7>::Value, \
+			TypeGroup<_Pointer>::Type_Arg8 arg8 = Default<TypeGroup<_Pointer>::Type_Arg8>::Value, \
+			TypeGroup<_Pointer>::Type_Arg9 arg9 = Default<TypeGroup<_Pointer>::Type_Arg9>::Value) \
 	{ \
 		static PtrHolder* ptrHolder = MakePtrHolder(); \
 		if (ptrHolder->ptr == nullptr){ \
 			GetProcAddress(ptrHolder, #_Name); \
 		} \
 		if (ptrHolder->ptr == nullptr){ \
-			return Default<TypeGroup<_Pointer>::Type_Result>()(); \
+			return Default<TypeGroup<_Pointer>::Type_Result>()(); /* 针对void特殊处理 */ \
 		} \
 		return TypeGroup<_Pointer>::_CallType##_Call(ptrHolder->ptr, \
 					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9); \

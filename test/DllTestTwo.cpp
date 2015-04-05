@@ -4,7 +4,9 @@
 #define DLL_API
 #endif
 
+#include <stdio.h>
+
 extern "C" DLL_API int fnDllTest(void)
 {
-	return 2;
+	return printf("this fnDllTest() return (2) \n");
 }

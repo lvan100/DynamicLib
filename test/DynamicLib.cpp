@@ -43,8 +43,6 @@ class DllTest: public BaseDllWrapper<DllTest> {
 	DEFINE_CDECL_FUNCTION(fnDllTest, int())
 };
 
-#include <assert.h>
-
 #ifdef WIN32
 #include <direct.h>
 #else
@@ -52,6 +50,7 @@ class DllTest: public BaseDllWrapper<DllTest> {
 #endif /* WIN32 */
 
 int main(int argc, char* argv[]) {
+
 	A().Func0();
 
 	A().Func1();
@@ -152,7 +151,7 @@ int main(int argc, char* argv[]) {
 	OnePath.append("/DllTestOne.so");
 	DllTestInst.Load(OnePath.c_str());
 #endif
-	assert(1 == DllTestInst.fnDllTest());
+	DllTestInst.fnDllTest();
 	DllTestInst.Free();
 
 	// 动态存储切换加载资源
@@ -163,7 +162,7 @@ int main(int argc, char* argv[]) {
 	TwoPath.append("/DllTestTwo.so");
 	DllTestInst.Load(TwoPath.c_str());
 #endif
-	assert(2 == DllTestInst.fnDllTest());
+	DllTestInst.fnDllTest();
 	DllTestInst.Free();
 
 	return 0;

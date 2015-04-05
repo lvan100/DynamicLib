@@ -512,8 +512,23 @@ struct TypeIsSame<_Left, _Left> {
  */
 template<typename _Type>
 struct Default {
+
+	static _Type Value;
+
 	_Type operator()() {
-		return _Type();
+		return Value;
+	}
+};
+
+template<typename _Type>
+_Type Default<_Type>::Value = _Type();
+
+/**
+ * 默认值,void类型模板
+ */
+template<>
+struct Default<void> {
+	void operator()() {
 	}
 };
 
@@ -522,19 +537,31 @@ struct Default {
  */
 template<typename _Type>
 struct Default<_Type*> {
+
+	static _Type* Value;
+
 	_Type* operator()() {
-		return nullptr;
+		return Value;
 	}
 };
+
+template<typename _Type>
+_Type* Default<_Type*>::Value = nullptr;
 
 /**
  * 默认值，指针特化模板
  */
 template<typename _Type>
 struct Default<const _Type*> {
+
+	static const _Type* Value;
+
 	const _Type* operator()() {
-		return nullptr;
+		return Value;
 	}
 };
+
+template<typename _Type>
+const _Type* Default<const _Type*>::Value = nullptr;
 
 #endif /* Type_Group_H */
