@@ -44,7 +44,12 @@ class DllTest: public BaseDllWrapper<DllTest> {
 };
 
 #include <assert.h>
+
+#ifdef WIN32
+#include <direct.h>
+#else
 #include <unistd.h>
+#endif /* WIN32 */
 
 int main(int argc, char* argv[]) {
 	A().Func0();
