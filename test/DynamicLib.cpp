@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
 #ifdef __APPLE__
 	OnePath.append("/DllTestOne.dylib");
 #else
-    OnePath.append("/DllTestOne.so");
+    	OnePath.append("/DllTestOne.so");
 #endif
 	DllTestInst.Load(OnePath.c_str());
 #endif
@@ -166,7 +166,7 @@ int main(int argc, char* argv[]) {
 #ifdef __APPLE__
 	TwoPath.append("/DllTestTwo.dylib");
 #else
-    TwoPath.append("/DllTestTwo.so");
+    	TwoPath.append("/DllTestTwo.so");
 #endif
 	DllTestInst.Load(TwoPath.c_str());
 #endif
