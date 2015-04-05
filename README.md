@@ -146,7 +146,7 @@ DynamicLib，极简的方式从dll或者so或者dylib文件获取导出（C）�
          	OnePath.append("/DllTestOne.so");
         	DllTestInst.Load(OnePath.c_str());
     	#endif
-        assert(1 == DllTestInst.fnDllTest());
+        DllTestInst.fnDllTest();
     	DllTestInst.Free();
     	
     	// 动态存储切换加载资源
@@ -157,7 +157,7 @@ DynamicLib，极简的方式从dll或者so或者dylib文件获取导出（C）�
     		TwoPath.append("/DllTestTwo.so");
     		DllTestInst.Load(TwoPath.c_str());
     	#endif
-    	assert(2 == DllTestInst.fnDllTest());
+    	DllTestInst.fnDllTest();
     	DllTestInst.Free();
     		
         return 0;
