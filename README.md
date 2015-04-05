@@ -1,7 +1,7 @@
 # DynamicLib
-DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下面展示的是一个简单的例子。
+DynamicLib，极简的方式从dll或者so或者dylib文件获取导出（C）函数。下面展示的是一个简单的例子。
 
-## 最多支持13个参数
+## 最多支持9个参数
 
     #include "ShareStore.h"
     class A : public BaseDllWrapper<A> {
@@ -15,13 +15,6 @@ DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下�
     	DEFINE_CDECL_FUNCTION(Func7, void(int, int, int, int, int, int, int));
     	DEFINE_CDECL_FUNCTION(Func8, void(int, int, int, int, int, int, int, int));
     	DEFINE_CDECL_FUNCTION(Func9, void(int, int, int, int, int, int, int, int, int));
-    	DEFINE_CDECL_FUNCTION(Func10, void(int, int, int, int, int, int, int, int, int, int));
-    	DEFINE_CDECL_FUNCTION(Func11, void(int, int, int, int, int, int, int, int, int, int, int));
-    	DEFINE_CDECL_FUNCTION(Func12, void(int, int, int, int, int, int, int, int, int, int, int, int));
-    	DEFINE_CDECL_FUNCTION(Func13, void(int, int, int, int, int, int, int, int, int, int, int, int, int));
-    	
-    	// 最多不能超过13个参数 >> error C2027: 使用了未定义类型“_Get_TypeGroup<_Tx>”
-    	// DEFINE_CDECL_FUNCTION(Func14, void(int, int, int, int, int, int, int, int, int, int, int, int, int, int));
     };
 
 ## 动态存储的方式导出User32.dll中的函数
@@ -57,149 +50,69 @@ DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下�
 
     int main(int argc, char* argv[])
     {
-    	A().Func0<_Null>();
+    	A().Func0();
     	
-    	// 调用参数太少
-    	// A().Func1<_Null>();
+    	A().Func1();
+    	A().Func1(1);
     	
-    	A().Func1<_Null>(1);
+    	A().Func2();
+    	A().Func2(1);
+    	A().Func2(1, 2);
     	
-    	// 调用参数太少
-    	// A().Func2<_Null>(); 
-    	// A().Func2<_Null>(1);
+    	A().Func3();
+    	A().Func3(1);
+    	A().Func3(1, 2);
+    	A().Func3(1, 2, 3);
     	
-    	A().Func2<_Null>(1, 2);
+    	A().Func4();
+    	A().Func4(1);
+    	A().Func4(1, 2);
+    	A().Func4(1, 2, 3);
+    	A().Func4(1, 2, 3, 4);
     	
-    	// 调用参数太少
-    	// A().Func3<_Null>(); 
-    	// A().Func3<_Null>(1);
-    	// A().Func3<_Null>(1, 2);
+    	A().Func5();
+    	A().Func5(1);
+    	A().Func5(1, 2);
+    	A().Func5(1, 2, 3);
+    	A().Func5(1, 2, 3, 4);
+    	A().Func5(1, 2, 3, 4, 5);
     	
-    	A().Func3<_Null>(1, 2, 3);
+    	A().Func6();
+    	A().Func6(1);
+    	A().Func6(1, 2);
+    	A().Func6(1, 2, 3);
+    	A().Func6(1, 2, 3, 4);
+    	A().Func6(1, 2, 3, 4, 5);
+    	A().Func6(1, 2, 3, 4, 5, 6);
     	
-    	// 调用参数太少
-    	// A().Func4<_Null>(); 
-    	// A().Func4<_Null>(1);
-    	// A().Func4<_Null>(1, 2);
-    	// A().Func4<_Null>(1, 2, 3);
+    	A().Func7();
+    	A().Func7(1);
+    	A().Func7(1, 2);
+    	A().Func7(1, 2, 3);
+    	A().Func7(1, 2, 3, 4);
+    	A().Func7(1, 2, 3, 4, 5);
+    	A().Func7(1, 2, 3, 4, 5, 6);
+    	A().Func7(1, 2, 3, 4, 5, 6, 7);
     	
-    	A().Func4<_Null>(1, 2, 3, 4);
+    	A().Func8();
+    	A().Func8(1, 2);
+    	A().Func8(1, 2, 3);
+    	A().Func8(1, 2, 3, 4);
+    	A().Func8(1, 2, 3, 4, 5);
+    	A().Func8(1, 2, 3, 4, 5, 6);
+    	A().Func8(1, 2, 3, 4, 5, 6, 7);
+    	A().Func8(1, 2, 3, 4, 5, 6, 7, 8);
     	
-    	// 调用参数太少
-    	// A().Func5<_Null>(); 
-    	// A().Func5<_Null>(1);
-    	// A().Func5<_Null>(1, 2);
-    	// A().Func5<_Null>(1, 2, 3);
-    	// A().Func5<_Null>(1, 2, 3, 4);
-    	
-    	A().Func5<_Null>(1, 2, 3, 4, 5);
-    	
-    	// 调用参数太少
-    	// A().Func6<_Null>(); 
-    	// A().Func6<_Null>(1);
-    	// A().Func6<_Null>(1, 2);
-    	// A().Func6<_Null>(1, 2, 3);
-    	// A().Func6<_Null>(1, 2, 3, 4);
-    	// A().Func6<_Null>(1, 2, 3, 4, 5);
-    	
-    	A().Func6<_Null>(1, 2, 3, 4, 5, 6);
-    	
-    	// 调用参数太少
-    	// A().Func7<_Null>(); 
-    	// A().Func7<_Null>(1);
-    	// A().Func7<_Null>(1, 2);
-    	// A().Func7<_Null>(1, 2, 3);
-    	// A().Func7<_Null>(1, 2, 3, 4);
-    	// A().Func7<_Null>(1, 2, 3, 4, 5);
-    	// A().Func7<_Null>(1, 2, 3, 4, 5, 6);
-    	
-    	A().Func7<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	
-    	// 调用参数太少
-    	// A().Func8<_Null>();
-    	// A().Func8<_Null>(1, 2);
-    	// A().Func8<_Null>(1, 2, 3);
-    	// A().Func8<_Null>(1, 2, 3, 4);
-    	// A().Func8<_Null>(1, 2, 3, 4, 5);
-    	// A().Func8<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func8<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	
-    	A().Func8<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	
-    	// 调用参数太少
-    	// A().Func9<_Null>(); 
-    	// A().Func9<_Null>(1);
-    	// A().Func9<_Null>(1, 2);
-    	// A().Func9<_Null>(1, 2, 3);
-    	// A().Func9<_Null>(1, 2, 3, 4);
-    	// A().Func9<_Null>(1, 2, 3, 4, 5);
-    	// A().Func9<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	// A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	
-    	A().Func9<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    	
-    	// 调用参数太少
-    	// A().Func10<_Null>(); 
-    	// A().Func10<_Null>(1);
-    	// A().Func10<_Null>(1, 2);
-    	// A().Func10<_Null>(1, 2, 3);
-    	// A().Func10<_Null>(1, 2, 3, 4);
-    	// A().Func10<_Null>(1, 2, 3, 4, 5);
-    	// A().Func10<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	// A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    			
-    	A().Func10<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-    				
-    	// 调用参数太少
-    	// A().Func11<_Null>(); 
-    	// A().Func11<_Null>(1);
-    	// A().Func11<_Null>(1, 2);
-    	// A().Func11<_Null>(1, 2, 3);
-    	// A().Func11<_Null>(1, 2, 3, 4);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    	// A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-    					
-    	A().Func11<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-    					
-    	// 调用参数太少
-    	// A().Func12<_Null>(); 
-    	// A().Func12<_Null>(1);
-    	// A().Func12<_Null>(1, 2);
-    	// A().Func12<_Null>(1, 2, 3);
-    	// A().Func12<_Null>(1, 2, 3, 4);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-    	// A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-    	
-    	A().Func12<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
-    	
-    	// 调用参数太少
-    	// A().Func13<_Null>(); 
-    	// A().Func13<_Null>(1);
-    	// A().Func13<_Null>(1, 2);
-    	// A().Func13<_Null>(1, 2, 3);
-    	// A().Func13<_Null>(1, 2, 3, 4);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1);
-    	// A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2);
-    	
-    	A().Func13<_Null>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3);
+    	A().Func9();
+    	A().Func9(1);
+    	A().Func9(1, 2);
+    	A().Func9(1, 2, 3);
+    	A().Func9(1, 2, 3, 4);
+    	A().Func9(1, 2, 3, 4, 5);
+    	A().Func9(1, 2, 3, 4, 5, 6);
+    	A().Func9(1, 2, 3, 4, 5, 6, 7);
+    	A().Func9(1, 2, 3, 4, 5, 6, 7, 8);
+    	A().Func9(1, 2, 3, 4, 5, 6, 7, 8, 9);
     	
     	//////////////////////////////////////////////////////////////////////////
     				
@@ -207,29 +120,46 @@ DynamicLib，极简的方式从dll或者so文件获取导出（C）函数。下�
     					
     	// 动态存储懒加载
     	ShareUser32 mUser32;
-    	HWND hWnd = mUser32.GetDesktopWindow<_Null>();
-    	mUser32.GetClientRect<_Null>(hWnd, &rcWnd);
+    	HWND hWnd = mUser32.GetDesktopWindow();
+    	mUser32.GetClientRect(hWnd, &rcWnd);
     	mUser32.Free();
     					
     	// 静态存储懒加载
-    	hWnd = StaticUser32::GetDesktopWindow<_Null>();
-    	StaticUser32::GetClientRect<_Null>(hWnd, &rcWnd);
+    	hWnd = StaticUser32::GetDesktopWindow();
+    	StaticUser32::GetClientRect(hWnd, &rcWnd);
     	StaticUser32::Free();
-    							
+    					
+    	//////////////////////////////////////////////////////////////////////////
+    	
+    	char buffer[256];
+    	getcwd(buffer, sizeof(buffer));
+    	
     	//////////////////////////////////////////////////////////////////////////
     								
     	DllTest DllTestInst;
-    									
+    					
     	// 动态存储切换加载资源
-    	DllTestInst.Load("DllTestOne.dll");
-    	assert(1 == DllTestInst.fnDllTest<_Null>());
+    	#ifdef WIN32
+    	    DllTestInst.Load("DllTestOne.dll");
+    	#else
+        	StdString OnePath(buffer);
+         	OnePath.append("/DllTestOne.so");
+        	DllTestInst.Load(OnePath.c_str());
+    	#endif
+        assert(1 == DllTestInst.fnDllTest());
     	DllTestInst.Free();
-    									
+    	
     	// 动态存储切换加载资源
-    	DllTestInst.Load("DllTestTwo.dll");
-    	assert(2 == DllTestInst.fnDllTest<_Null>());
+    	#ifdef WIN32
+    	    DllTestInst.Load("DllTestTwo.dll");
+    	#else
+    		StdString TwoPath(buffer);
+    		TwoPath.append("/DllTestTwo.so");
+    		DllTestInst.Load(TwoPath.c_str());
+    	#endif
+    	assert(2 == DllTestInst.fnDllTest());
     	DllTestInst.Free();
-    											
+    		
         return 0;
     }
     														
