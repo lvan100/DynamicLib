@@ -8,6 +8,6 @@
  */
 
 #define ASSERT_STRING(_Expression, ...) \
-	(void)((!!(_Expression)) || (printf(__VA_ARGS__), 0) || (assert(_Expression), 0))
+	(void)((!!(_Expression)) || (printf(__VA_ARGS__), printf("\n"), 0) || (assert(_Expression), 0))
 
 #endif /* Assert_String_H */

@@ -53,6 +53,8 @@ struct BaseTypeGroup_9 {
 	typedef _Arg8 Type_Arg8;
 	typedef _Arg9 Type_Arg9;
 
+	static const int N = 9;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4, Type_Arg5, Type_Arg6, Type_Arg7, Type_Arg8, Type_Arg9);
 
@@ -103,6 +105,8 @@ struct BaseTypeGroup_8 {
 	typedef _Arg8 Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 8;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4, Type_Arg5, Type_Arg6, Type_Arg7, Type_Arg8);
 
@@ -152,6 +156,8 @@ struct BaseTypeGroup_7 {
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 7;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4, Type_Arg5, Type_Arg6, Type_Arg7);
 
@@ -196,6 +202,8 @@ struct BaseTypeGroup_6 {
 	typedef _Null Type_Arg7;
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
+
+	static const int N = 6;
 
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4, Type_Arg5, Type_Arg6);
@@ -243,6 +251,8 @@ struct BaseTypeGroup_5 {
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 5;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4, Type_Arg5);
 
@@ -289,6 +299,8 @@ struct BaseTypeGroup_4 {
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 4;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3,
 			Type_Arg4);
 
@@ -334,6 +346,8 @@ struct BaseTypeGroup_3 {
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 3;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2, Type_Arg3);
 
 	static _Result _stdcall_Call(void* ptr, Type_Arg1 arg1, Type_Arg2 arg2,
@@ -375,6 +389,8 @@ struct BaseTypeGroup_2 {
 	typedef _Null Type_Arg7;
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
+
+	static const int N = 2;
 
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1, Type_Arg2);
 
@@ -418,6 +434,8 @@ struct BaseTypeGroup_1 {
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
 
+	static const int N = 1;
+
 	typedef _Result (STDCALL *_stdcall_Ptr)(Type_Arg1);
 
 	static _Result _stdcall_Call(void* ptr, Type_Arg1 arg1,
@@ -459,6 +477,8 @@ struct BaseTypeGroup_0 {
 	typedef _Null Type_Arg7;
 	typedef _Null Type_Arg8;
 	typedef _Null Type_Arg9;
+
+	static const int N = 0;
 
 	typedef _Result (STDCALL *_stdcall_Ptr)();
 
@@ -508,16 +528,27 @@ struct TypeIsSame<_Left, _Left> {
 };
 
 /**
+ * 用于Default构造计数
+ */
+struct DefaultCount{
+	static int num;
+};
+int DefaultCount::num = 0;
+
+/**
  * 默认值,值类型模板
  */
 template<typename _Type>
-struct Default {
+struct Default : DefaultCount{
 
 	static _Type Value;
 
 	_Type operator()() {
 		return Value;
 	}
+
+	Default(){ num++; }
+	Default(int n) { num = n; }
 };
 
 template<typename _Type>
@@ -527,22 +558,28 @@ _Type Default<_Type>::Value = _Type();
  * 默认值,void类型模板
  */
 template<>
-struct Default<void> {
+struct Default<void> : DefaultCount{
 	void operator()() {
 	}
+
+	Default(){ num++; }
+	Default(int n) { num = n; }
 };
 
 /**
  * 默认值，指针特化模板
  */
 template<typename _Type>
-struct Default<_Type*> {
+struct Default<_Type*> : DefaultCount{
 
 	static _Type* Value;
 
 	_Type* operator()() {
 		return Value;
 	}
+
+	Default(){ num++; }
+	Default(int n) { num = n; }
 };
 
 template<typename _Type>
@@ -552,13 +589,16 @@ _Type* Default<_Type*>::Value = nullptr;
  * 默认值，指针特化模板
  */
 template<typename _Type>
-struct Default<const _Type*> {
+struct Default<const _Type*> : DefaultCount{
 
 	static const _Type* Value;
 
 	const _Type* operator()() {
 		return Value;
 	}
+
+	Default(){ num++; }
+	Default(int n) { num = n; }
 };
 
 template<typename _Type>
