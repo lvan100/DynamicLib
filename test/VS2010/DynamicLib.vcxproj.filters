@@ -7,33 +7,36 @@
     <Filter Include="Application">
       <UniqueIdentifier>{8ab9d8b0-c642-493f-901b-fd3dde0f7352}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DynamicLib\TmplArgs">
+      <UniqueIdentifier>{da41bc15-2c2f-4e7a-937f-19e1533b5f9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\AssertString.h">
+    <ClInclude Include="..\..\src\TmplArgs\TmplArgDef.h">
+      <Filter>DynamicLib\TmplArgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TmplArgs\TmplArgList.h">
+      <Filter>DynamicLib\TmplArgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TmplArgs\TmplArgUtil.h">
+      <Filter>DynamicLib\TmplArgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\DllLoader.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\DllWrapper.h">
+    <ClInclude Include="..\..\src\DllFunc.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\OtherStore.h">
-      <Filter>DynamicLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ShareStore.h">
-      <Filter>DynamicLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\StaticStore.h">
-      <Filter>DynamicLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\TypeGroup.h">
+    <ClInclude Include="..\..\src\DllFuncT.h">
       <Filter>DynamicLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\DllWrapper.cpp">
-      <Filter>DynamicLib</Filter>
-    </ClCompile>
     <ClCompile Include="..\DynamicLib.cpp">
       <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DllLoader.cpp">
+      <Filter>DynamicLib</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
